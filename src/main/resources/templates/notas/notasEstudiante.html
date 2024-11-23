@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Notas del Estudiante</title>
+</head>
+<body class="container mt-5">
+
+<h1 class="text-center mb-4">Notas de <span th:text="${estudiante.nombre} + ' ' + ${estudiante.apellido}"></span></h1>
+<p class="text-center mb-4">Identificación: <span th:text="${estudiante.identificacion}"></span></p>
+
+<div>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Materia</th>
+            <th>Nota</th>
+            <th>Comentario</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="nota : ${notas}">
+            <td th:text="${nota.materia.nombre_materia}"></td>
+            <td th:text="${nota.nota}"></td>
+            <td th:text="${nota.comentario}"></td>
+            <td>
+                <a th:href="@{/notas/editarNota/{id}(id=${nota.id_nota})}">Editar Notas</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<a href="/estudiantes" class="btn btn-secondary mt-4">Volver a la lista de estudiantes</a>
+
+</body>
+</html>

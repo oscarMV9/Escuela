@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Detalles del Curso</title>
+</head>
+<body class="container mt-5">
+
+<h1 th:text="${curso.nombre_curso}" class="text-center mb-4"></h1>
+<p th:text="${curso.año_Escolar}" class="text-center mb-4"></p>
+<div>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Identificacion</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo</th>
+                <th>Notas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="estudiante : ${curso.estudiantes}">
+                <td th:text="${estudiante.identificacion}"></td>
+                <td th:text="${estudiante.nombre}"></td>
+                <td th:text="${estudiante.apellido}"></td>
+                <td th:text="${estudiante.correo}"></td>
+                <td>
+                    <a th:href="@{/notas/estudiante/{id}(id=${estudiante.id_estudiante})}" class="btn btn-primary btn-sm">
+                        Notas
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<a href="/cursos">Volver a la lista de cursos</a>
+</body>
+</html>

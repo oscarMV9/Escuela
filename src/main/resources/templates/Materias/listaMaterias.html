@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Materias</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+<h1 class="text-center mb-4">Lista de Materias</h1>
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre de Materia</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="materia : ${materias}">
+            <th th:text="${materia.id_materia}"></th>
+            <th th:text="${materia.nombre_materia}"></th>
+            <th>
+                <form th:action="@{/eliminarMateria/{id}(id=${materia.id_materia})}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que quiere eliminar?')">Eliminar</button>
+                </form>
+                <a th:href="@{/materias/{idMaterias}(idMaterias=${materia.id_materia})}">ver Profesores</a>
+            </th>
+        </tr>
+    </tbody>
+</table>
+<a href="/crearmateria">crear materia</a>
+</body>
+</html>

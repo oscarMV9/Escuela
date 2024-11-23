@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edicion de Profesores</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+<h1>editar Profesor</h1>
+<form action="#" th:action="@{/guardarProfe}" th:object="${profesor}" method="post">
+  <input type="hidden" th:field="*{id_profesor}" />
+
+  <div class="form-group">
+    <label for="nombre">Nombre:</label>
+    <input type="text" th:field="*{nombre}" class="form-control" id="nombre" />
+  </div>
+
+  <div class="form-group">
+    <label for="apellido">Apellido:</label>
+    <input type="text" th:field="*{apellido}" class="form-control" id="apellido" />
+  </div>
+
+  <div class="form-group">
+    <label>Especialidad (Materia):</label>
+    <select th:field="*{materia.id_materia}" class="form-control">
+      <option th:each="materia : ${materias}"
+              th:value="${materia.id_materia}"
+              th:text="${materia.nombre_materia}">
+      </option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+</body>
+</html>

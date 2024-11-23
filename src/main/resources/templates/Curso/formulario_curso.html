@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Curso</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+<h1 class="text-center mb-4">Crear Nuevo Curso</h1>
+
+<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+<form th:action="@{/GuardarCurso}" th:object="${curso}" method="post" class="border p-4 rounded bg-light">
+    <div class="form-group">
+        <label for="año_escolar">Año Escolar:</label>
+        <select id="año_escolar" name="año_Escolar" class="form-control">
+            <option value="2024" th:field="*{año_Escolar}" selected>2024</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="nombre_curso">Nombre del curso:</label>
+        <input type="text" id="nombre_curso" th:field="*{nombre_curso}" placeholder="nombre del curso" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+        <label for="salon">Salón asignado:</label>
+        <select id="salon" name="IdSalon" class="form-control" required>
+            <option value="" disabled selected>Seleccione un salón</option>
+            <option th:each="salonn : ${salones}" th:value="${salonn.id_salon}" th:text="${salonn.numeroSalon}"></option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+</body>
+</html>

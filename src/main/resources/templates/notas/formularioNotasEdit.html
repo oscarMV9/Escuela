@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Nota</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+<h1 class="text-center mb-4">Editar Nota</h1>
+
+<!-- Mensajes de éxito o error -->
+<div th:if="${error}" class="alert alert-danger" role="alert">
+  <p th:text="${error}"></p>
+</div>
+<div th:if="${success}" class="alert alert-success" role="alert">
+  <p th:text="${success}"></p>
+</div>
+
+<form th:action="@{/notas/editarnota/{id}(id=${notas.id_nota})}"
+      method="post"
+      class="border p-4 rounded bg-light">
+  <div class="form-group">
+    <label for="estudiantes">Estudiante:</label>
+    <select id="estudiantes" name="idEstudiante" class="form-control" required disabled>
+      <option th:each="estudiante : ${estudiantes}"
+              th:value="${estudiante.idEstudiante}"
+              th:text="${estudiante.identificacion}"
+              th:selected="${notas.estudiante?.idEstudiante == estudiante.idEstudiante}">
+      </option>
+    </select>
+    <small class="form-text text-muted">El estudiante no puede ser modificado.</small>
+  </div>
+  <div class="form-group">
+    <label for="materias">Materia:</label>
+    <select id="materias" name="idMateria" class="form-control" required disabled>
+      <option th:each="materia : ${materias}"
+              th:value="${materia.id_materia}"
+              th:text="${materia.nombre_materia}"
+              th:selected="${notas.materia?.id_materia == materia.id_materia}">
+      </option>
+    </select>
+    <small class="form-text text-muted">La materia no puede ser modificada.</small>
+  </div>
+
+  <!-- Campo para la nota -->
+  <div class="form-group">
+    <label for="nota">Nota Asignada:</label>
+    <input type="number" step="0.01" id="nota" name="nota"
+           placeholder="Ejemplo: 4.5"
+           class="form-control"
+           th:value="${notas.nota}"
+           required />
+  </div>
+  <div class="form-group">
+    <label for="comentario">Comentario:</label>
+    <input type="text" id="comentario" name="comentario"
+           placeholder="Comentario opcional"
+           class="form-control"
+           th:value="${notas.comentario}" />
+  </div>
+  <button type="submit" class="btn btn-primary">Actualizar Nota</button>
+  <a href="/notas" class="btn btn-secondary">Cancelar</a>
+</form>
+</body>
+</html>

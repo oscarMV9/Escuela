@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Profesor</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+<h1>Crear Profesor</h1>
+<form th:action="@{/guardarProfe}" th:object="${profesor}" method="post">
+  <div class="form-group">
+    <label for="nombre">Nombre</label>
+    <input type="text" id="nombre" th:field="*{nombre}" class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="apellido">Apellido</label>
+    <input type="text" id="apellido" th:field="*{apellido}" class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="materia">Especialidad (Materia):</label>
+    <select id="materia" th:field="*{materia.id_materia}" class="form-control" required>
+      <option value="" disabled selected>Seleccione una materia</option>
+      <option th:each="materia : ${materias}"
+              th:value="${materia.id_materia}"
+              th:text="${materia.nombre_materia}">
+      </option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+</body>
+</html>

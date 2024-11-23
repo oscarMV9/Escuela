@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>detalles de Materias</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+<h1 th:text="${materias.nombre_materia}"></h1>
+<div>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre del maestro</th>
+                <th>Apellido del maestro</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="profesor : ${materias.profesor}">
+                <td th:text="${profesor.nombre}"></td>
+                <td th:text="${profesor.apellido}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

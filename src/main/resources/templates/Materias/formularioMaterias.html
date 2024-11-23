@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Crear materia</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+<h1 class="text-center mb-4">Crear nueva Materia</h1>
+<form th:action="@{guardarmateria}" th:object="${materias}" method="post" class="border p-4 rounded bg-light">
+  <div class="form-group">
+    <label for="materia">Materia:</label>
+    <input type="text" id="materia" th:field="*{nombre_materia}" placeholder="nombre de la materia" class="form-control" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Guardar materia</button>
+</form>
+</body>
+</html>
