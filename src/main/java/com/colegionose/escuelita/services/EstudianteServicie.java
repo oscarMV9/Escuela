@@ -35,17 +35,30 @@ public class EstudianteServicie implements EstudiantesImpl {
     @Override
     public Estudiante saveGuardar(Estudiante e, Long id) {
         Optional<Estudiante> estudianteExistente = repositorioEstudiantes.findByIdentificacion(e.getIdentificacion());
+
         if (estudianteExistente.isPresent()) {
-            throw new RuntimeException("el numero de identificacion ya esta pendejo");
+            Estudiante estudianteActual = estudianteExistente.get();
+            if (!estudianteActual.getId_estudiante().equals(e.getId_estudiante())) {
+                throw new RuntimeException("El número de identificación ya está en uso");
+            }
+
+            estudianteActual.setNombre(e.getNombre());
+            estudianteActual.setApellido(e.getApellido());
+            estudianteActual.setCorreo(e.getCorreo());
+            estudianteActual.setCurso(obtenerCursoId(id));
+            return repositorioEstudiantes.save(estudianteActual);
         }
-        Optional<Curso> cursoOptional = repositorioCurso.findById(id);
-        if (cursoOptional.isPresent()) {
-            e.setCurso(cursoOptional.get());
-        } else {
-            throw new RuntimeException("Curso no encontrado con id: " + id);
-        }
+
+        e.setCurso(obtenerCursoId(id));
         return repositorioEstudiantes.save(e);
     }
+
+    private Curso obtenerCursoId(Long id) {
+        return repositorioCurso.findById(id)
+                .orElseThrow(() -> new RuntimeException("Curso no encontrado con el ID " + id));
+    }
+
+
 
     @Override
     public void EliminarEstudiante(Long id) {

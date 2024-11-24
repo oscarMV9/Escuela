@@ -1,37 +1,56 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Edicion de estudiante</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Estudiante</title>
 </head>
-<body class="container mt-5">
-    <h1>Editar Estudiante</h1>
-    <div th:if="${error}" th:text="${error}" class="alert alert-danger"></div>
-<form th:action="@{/actualizarEstudiante/{id}(id=${estudiante.id_estudiante})}" th:object="${estudiante}" method="post" class="border p-4 rounded bg-light">
+<body>
+<h1>Editar Estudiante</h1>
+
+<!-- Mostrar errores si existen -->
+<div style="color: red;">
+    <p th:if="${error}" th:text="${error}"></p>
+</div>
+
+<!-- Formulario para actualizar el estudiante -->
+<form th:action="@{/guardarEstudiante}" th:object="${estudiante}" method="post">
+    <!-- Campo oculto para el ID del estudiante -->
+    <input type="hidden" th:field="*{id_estudiante}" />
+
     <div>
-        <label for="id_estudiante">identificacion del estudiante:</label>
-        <input type="text" id="id_estudiante" th:field="*{identificacion}" placeholder="identificacion del estudiante" class="form-control" required>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" th:field="*{nombre}" required />
     </div>
+
     <div>
-        <label for="nombre">Nombre del estudiante:</label>
-        <input type="text" id="nombre" th:field="*{nombre}" placeholder="nombre del estudiante" class="form-control" required>
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" th:field="*{apellido}" required />
     </div>
-    <div>
-        <label for="apellido">Apellido del estudiantete:</label>
-        <input type="text" id="apellido" th:field="*{apellido}" placeholder="apellido del estudiante" class="form-control" required>
-    </div>
+
     <div>
         <label for="correo">Correo:</label>
-        <input type="text" id="correo" th:field="*{correo}" placeholder="Correo del estudiante" class="form-control" required>
+        <input type="email" id="correo" th:field="*{correo}" required />
     </div>
-    <div class="form-group">
+
+    <div>
+        <label for="identificacion">Identificación:</label>
+        <input type="text" id="identificacion" th:field="*{identificacion}" required readonly />
+    </div>
+
+    <div>
         <label for="curso">Curso:</label>
-        <select id="curso" name="idCurso" class="form-control" required>
-            <option th:each="cursos : ${curso}" th:value="${cursos.id_curso}" th:text="${cursos.nombre_curso}"></option>
+        <select id="curso" name="idCurso" required>
+            <option th:each="curso : ${curso}"
+                    th:value="${curso.id_curso}"
+                    th:text="${curso.nombre_curso}"
+                    th:selected="${curso.id_curso} == ${estudiante.curso?.id_curso}">
+            </option>
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Guardar</button>
+
+    <button type="submit">Guardar</button>
+    <a href="/estudiantes">Cancelar</a>
 </form>
 </body>
 </html>
